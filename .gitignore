@@ -1,0 +1,21 @@
+# Credentials
+.env
+*.key
+*.pem
+*.p12
+*.pfx
+credentials/
+secrets/
+
+# Local machine inventory
+inventory/*
+!inventory/README.md
+
+# Virtual machine images and installers
+*.qcow2
+*.img
+*.iso
+
+# Temporary output
+*.log
+__pycache__/
