@@ -11,8 +11,39 @@
 | GPU | NVIDIA GeForce RTX 5080 |
 | Physical memory | 32 GB installed |
 | Storage | 2 TB NVMe SSD |
-| Network | Campus wired Ethernet |
+| Network | Mines Research DMZ (wired Ethernet) |
 | Node status | Single-node HPC prototype operational |
+
+## Network and Remote Access
+
+| Property | Configuration |
+|---|---|
+| Network zone | Mines Research DMZ |
+| Physical interface | enp132s0 |
+| NetworkManager connection | netplan-enp132s0 |
+| Address assignment | DHCP |
+| Remote access | GlobalProtect VPN + SSH |
+| SSH authentication | ED25519 public key |
+| macOS integration | Keychain and SSH config |
+| Remote development | VS Code Remote-SSH |
+| Last validation | October 28, 2026 |
+
+Node01 was registered with Mines IT through the
+Special Network Access Request process.
+
+After Research DMZ authorization and reboot,
+SSH connectivity through GlobalProtect was verified.
+
+On the tested macOS 27 client, enabling Firewall
+Stealth Mode resolved a GlobalProtect connection issue.
+
+VS Code Remote-SSH was successfully validated.
+
+IP addresses, hardware identifiers, and administrative
+ticket information are maintained outside this
+public repository.
+
+See [Remote Access and Development](remote-access.md).
 
 ## Hardware and CPU Topology
 
