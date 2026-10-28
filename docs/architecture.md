@@ -124,6 +124,7 @@ the Research DMZ and GlobalProtect VPN.
 
 ### Validated Remote Access
 
+```text
 MacBook Pro (macOS 27)
     |
     | GlobalProtect VPN
@@ -138,6 +139,7 @@ yelab-node01 (Ubuntu 24.04)
     +-- VS Code Remote-SSH
     +-- Slurm job submission
     +-- NVIDIA RTX 5080
+```
 
 The complete remote access workflow was validated
 on October 28, 2026.
