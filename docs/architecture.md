@@ -112,21 +112,66 @@ A multi-node deployment will require:
 Authentication keys and user credentials must never
 be committed to this repository.
 
+
 ## Networking
 
-Node01 uses campus wired Ethernet.
+Node01 is connected to the Colorado School of Mines
+Research Network through wired Ethernet.
 
-SSH is operational on the host.
+The workstation is lab-managed rather than
+Mines-managed. Remote access is authorized through
+the Research DMZ and GlobalProtect VPN.
 
-Cross-segment access from personal devices may be
-restricted by campus networking policies.
+### Validated Remote Access
 
-Multi-node communication, hostname resolution,
-firewall rules, and remote access must be validated
-before expanding the cluster.
+```text
+MacBook Pro (macOS 27)
+    |
+    | GlobalProtect VPN
+    v
+Mines Research DMZ
+    |
+    | SSH / TCP 22
+    v
+yelab-node01 (Ubuntu 24.04)
+    |
+    +-- SSH terminal
+    +-- VS Code Remote-SSH
+    +-- Slurm job submission
+    +-- NVIDIA RTX 5080
+```
 
-Do not assume that a successful local SSH test
-guarantees reachability from other campus networks.
+The complete remote access workflow was validated
+on October 28, 2026.
+
+Node01 uses DHCP, so its IP address may change.
+The approved remote access path requires GlobalProtect.
+
+### Remote Development
+
+Authorized researchers can use SSH key authentication,
+macOS Keychain, and VS Code Remote-SSH.
+
+Remote execution occurs on Node01, while resource
+allocation for scheduled research workloads is managed
+by Slurm.
+
+See [Remote Access and Development](remote-access.md).
+
+### Multi-Node Networking
+
+Future expansion to Node02-04 requires verification of:
+
+- Inter-node connectivity and firewall permissions
+- Slurm controller and compute daemon communication
+- MUNGE authentication and hostname resolution
+- Shared storage and data transfer
+- Campus network authorization
+
+Research DMZ membership does not automatically
+guarantee unrestricted inter-node connectivity.
+
+
 
 ## Storage Architecture
 

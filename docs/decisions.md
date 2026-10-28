@@ -209,3 +209,52 @@ files through these paths.
 
 Multi-node deployment requires an explicit
 storage, data movement, and backup strategy.
+
+## ADR-011: Research DMZ and VPN-Gated Remote Access
+
+**Status:** Implemented on Node01
+
+**Context:**
+
+Mines campus networking restricts remote SSH and RDP
+access to non-Mines-managed devices on the standard
+Ethernet network.
+
+Node01 requires secure remote administration and
+development access without converting the workstation
+into a centrally managed endpoint.
+
+**Decision:**
+
+Register Node01 with the Mines Research Network
+through the official Special Network Access Request.
+
+Use GlobalProtect VPN as the approved access path,
+with SSH public-key authentication for authorized users.
+
+The validated remote workflow supports:
+
+- SSH terminal access
+- macOS Keychain integration
+- VS Code Remote-SSH
+- Remote Slurm job submission
+
+**Validation:**
+
+On October 28, 2026, the following were verified:
+
+- Research DMZ registration completed
+- GlobalProtect connected from macOS 27
+- SSH public-key authentication succeeded
+- VS Code Remote-SSH connected successfully
+
+**Consequences:**
+
+- VPN connectivity is required for the validated workflow.
+- Node01 currently receives its IP address through DHCP.
+- Research DMZ membership does not guarantee unrestricted
+  communication between future compute nodes.
+- Network access remains subject to Mines IT policies.
+- SSH and RDP must not be exposed directly to the internet.
+
+See [Remote Access and Development](remote-access.md).

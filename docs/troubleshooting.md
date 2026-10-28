@@ -356,34 +356,113 @@ to complete first.
 
 ## 8. Campus SSH Connectivity
 
-### Observed Behavior
+### Original Problem
 
-SSH was confirmed operational locally on Node01.
+SSH worked locally on Node01, but remote connections
+from a MacBook on Mines WiFi could not be established.
 
-Connections from other campus network segments
-were not universally reachable.
+Ubuntu SSH configuration was not the root cause.
 
-### Investigation
+Mines IT confirmed that the original campus subnet
+restricted remote SSH and RDP access to unmanaged devices.
 
-Check the SSH service and listener:
+### Validated Resolution
+
+Node01 was registered with the Mines Research Network
+through a Special Network Access Request.
+
+After IT approval and a system reboot, remote SSH
+was successfully established through GlobalProtect VPN.
+
+**Validation date:** October 28, 2026.
+
+### Diagnostics
+
+On Node01:
 
 ```bash
 systemctl is-active ssh
-ss -lnt | grep ':22'
+sudo ss -lntp | grep ':22'
 ```
 
-Cross-network failures may involve routing or
-campus access-control policies.
+On the macOS client, with GlobalProtect connected:
 
-Do not assume they are caused by Ubuntu's firewall.
+```bash
+ssh -o ConnectTimeout=10 \
+  yelab-node01 'echo SSH_OK && hostname'
+```
 
-### Operational Guidance
+A successful connection confirms that the VPN,
+SSH transport, and remote authentication are working.
 
-Coordinate with campus IT for approved connectivity
-between network segments, including VPN access.
+Do not bypass campus network restrictions by
+exposing SSH directly to the internet.
 
-Do not bypass campus network security controls
-or broadly expose SSH ports as a workaround.
+### macOS 27 GlobalProtect Connection Failure
+
+**Symptom:**
+
+GlobalProtect initially failed to connect from
+the MacBook running macOS 27.
+
+**Validated workaround:**
+
+Mines IT recommended enabling macOS Firewall
+Stealth Mode.
+
+Navigate to:
+
+System Settings > Network > Firewall >
+Firewall Options > Stealth Mode
+
+After enabling Stealth Mode, GlobalProtect
+connected successfully.
+
+This workaround was validated on the tested
+MacBook and should not be assumed to apply
+universally to all macOS installations.
+
+### VS Code Remote-SSH Timeout
+
+**Symptom:**
+
+Terminal SSH worked, but VS Code Remote-SSH
+reported:
+
+`Error: Timeout (Connecting with SSH timed out)`
+
+**Validated solution:**
+
+In VS Code User Settings (JSON), configure:
+
+```json
+{
+    "remote.SSH.showLoginTerminal": true,
+    "remote.SSH.useLocalServer": false,
+    "remote.SSH.connectTimeout": 60
+}
+```
+
+Merge these entries with existing settings.
+
+After applying the configuration, VS Code
+successfully installed and started its remote
+server under:
+
+`~/.vscode-server/`
+
+Remote development was subsequently confirmed
+operational.
+
+### Remaining Limitations
+
+- GlobalProtect is required for the approved access path.
+- Node01 currently uses DHCP.
+- Direct inter-node connectivity has not been validated.
+- A stable DNS name or DHCP reservation is not yet configured.
+
+See [Remote Access and Development](remote-access.md)
+for the complete setup procedure.
 
 ## 9. Windows VM Resource Competition
 

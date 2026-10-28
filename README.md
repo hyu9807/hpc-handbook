@@ -25,7 +25,10 @@ management.
 - Ubuntu 24.04.5 LTS with NVIDIA CUDA
 - Intel Core Ultra 7 265KF hybrid CPU architecture
 - NVIDIA GeForce RTX 5080 (16 GB)
-- SSH remote administration
+- SSH remote administration through Mines Research DMZ
+- GlobalProtect VPN access from macOS 27
+- ED25519 SSH authentication with macOS Keychain
+- VS Code Remote-SSH development environment
 - Windows 11 engineering VM via KVM/QEMU
 - Shared research directories with Unix group permissions and ACLs
 - MUNGE authentication
@@ -68,6 +71,7 @@ management.
 
 - [System Architecture](docs/architecture.md)
 - [Node01 Configuration](docs/node01.md)
+- [Remote Access and Development](docs/remote-access.md)
 - [Architecture Decisions](docs/decisions.md)
 - [Slurm Workload Management](docs/slurm.md)
 - [GPU Computing](docs/gpu-computing.md)
